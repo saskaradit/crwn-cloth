@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import Signin from '../component/signin/signin.component';
+import SigninSignupPage from '../pages/signin.signup/signin-signup.component';
 
 const config = {
   apiKey: "AIzaSyDy88KV8bV1Ynf2iO3cq-KqsC1tq_7yu4c",
@@ -13,6 +14,31 @@ const config = {
   appId: "1:231230877102:web:5aef0948a11ff2a8b1ac3f",
   measurementId: "G-SP48XQC2Z1"
 };
+
+export const createUserProfileDocument = async (userAuth, etc) => {
+  if(!userAuth) return;
+
+  const userRef = firestore.doc(`users/${userAuth.uid}`)
+  const snapshot = await userRef.get();
+
+  if(!snapshot.exists){
+    const {displayName, email} = userAuth;
+    const createdAt = new Date();
+
+    try{
+      await userRef.set({
+        displayName,
+        email,
+        createdAt,
+        ...etc
+      })
+    }catch(err){
+        console.log(err);
+    }
+
+    return userRef;
+  }
+}
 
 firebase.initializeApp(config)
 
