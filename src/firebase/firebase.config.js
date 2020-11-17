@@ -1,8 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
-import Signin from '../component/signin/signin.component';
-import SigninSignupPage from '../pages/signin.signup/signin-signup.component';
+
 
 const config = {
   apiKey: "AIzaSyDy88KV8bV1Ynf2iO3cq-KqsC1tq_7yu4c",
@@ -14,6 +13,9 @@ const config = {
   appId: "1:231230877102:web:5aef0948a11ff2a8b1ac3f",
   measurementId: "G-SP48XQC2Z1"
 };
+
+
+firebase.initializeApp(config)
 
 export const createUserProfileDocument = async (userAuth, etc) => {
   if(!userAuth) return;
@@ -36,11 +38,10 @@ export const createUserProfileDocument = async (userAuth, etc) => {
         console.log(err);
     }
 
-    return userRef;
   }
+  return userRef;
 }
 
-firebase.initializeApp(config)
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
