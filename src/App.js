@@ -9,9 +9,10 @@ import CheckoutPage from './pages/checkout/checkout.component'
 import SigninSignupPage from './pages/signin.signup/signin-signup.component.jsx'
 
 import Header from './component/header/header.component.jsx'
-import {auth,createUserProfileDocument} from './firebase/firebase.config'
+import {auth,createUserProfileDocument,addCollectionAndDocs} from './firebase/firebase.config'
 import {setCurrentUser} from './redux/user/user.action'
 import {selectCurrentUser} from './redux/user/user.selector'
+// import {selectColletionArray} from './redux/shop/shop.selectors'
 
 // <Route exact path component>
 class App extends React.Component {
@@ -23,7 +24,6 @@ class App extends React.Component {
     const {setCurrentUser} = this.props;
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async user=>{
-
       if(user){
         const userRef = await createUserProfileDocument(user);
 
@@ -34,9 +34,7 @@ class App extends React.Component {
           });
         });
       }
-      // else{
         setCurrentUser(user);
-      // }
     })
   }
 
