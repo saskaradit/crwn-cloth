@@ -1,7 +1,6 @@
 import React from 'react'
 import StripeCheckout from 'react-stripe-checkout'
 import axios from 'axios'
-import { response } from 'express'
 
 const StripeCheckoutButton = ({price}) => {
   const priceInCents = price * 100
@@ -12,7 +11,7 @@ const StripeCheckoutButton = ({price}) => {
       url:'payment',
       method: 'post',
       data: {
-        amount: priceForStripe,
+        amount: priceInCents,
         token: token
       }
     }).then(response=>{
