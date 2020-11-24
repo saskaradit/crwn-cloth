@@ -1,12 +1,15 @@
-import React from 'react';
+import React,{Suspense} from 'react';
 import  './homepage.styles.scss'
 import Directory from '../../component/directory/directory.component' 
+import Spinner from '../../component/spinner/spinner.component'
 
 const HomePage =()=>{
   return(
-    <div className='homepage'>
+    <Suspense fallback={<Spinner/>}>
+      <div className='homepage'>
       <Directory/>
-    </div>
+      </div>
+    </Suspense>
   )
 }
 
